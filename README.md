@@ -28,6 +28,7 @@ mongo --version
 1. Open a terminal window in the cloned project
 1. Run the following commands:
 
+
 ```bash
 # Install dependencies
 npm install
