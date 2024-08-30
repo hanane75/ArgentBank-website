@@ -19,6 +19,8 @@ body {
 
 .bg-dark {
   background-color: #12002b;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .sr-only {
@@ -73,7 +75,7 @@ body {
 /* hero ***/
 
 .hero {
-  background-image: url('C:\Users\benka\Desktop\Projet10\ArgentBank-website\FRONT-END\front-end\public\bank-tree.jpeg');
+  background-image: url('C:\Users\benka\Desktop\Projet10\ArgentBank-website\FRONT-END\front-end\public\bank-tree.webp');
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;

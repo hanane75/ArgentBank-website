@@ -11,7 +11,7 @@ function SignUp() {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    // Logique pour vérifier les identifiants pourrait être ajoutée ici
+    // Logique pour vérifier les identifiants 
     navigate('/User'); // Rediriger vers la page utilisateur
   };
 
