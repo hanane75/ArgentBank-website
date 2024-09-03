@@ -20,7 +20,7 @@ body {
 .bg-dark {
   background-color: #12002b;
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 50px;
 }
 
 .sr-only {
@@ -47,6 +47,9 @@ body {
 .main-nav a {
   font-weight: bold;
   color: #2c3e50;
+  display: flex;
+    align-items: center;
+    gap:8px;
 }
 
 .main-nav a.router-link-exact-active {
@@ -71,7 +74,9 @@ body {
   max-width: 100%;
   width: 200px;
 }
-
+.hidden {
+  display: none;
+}
 /* hero ***/
 
 .hero {

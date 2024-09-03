@@ -1,23 +1,50 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { logout } from '../Reducer/authSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import  {Link, NavLink } from 'react-router-dom';
+import '../App.css';
+
 function NavBar() {
+  const dispatch = useDispatch();
+  // Utiliser useSelector pour obtenir l'état d'authentification et les informations de l'utilisateur
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <nav className="main-nav">
-      <NavLink to="/HomePage" >
-      <div className="main-nav-logo" >
-        <img className="main-nav-logo-image" src='argentBankLogo.webp' alt="Argent Bank Logo" />
+      <Link to="/" className="main-nav-logo">
+        <img
+          className="main-nav-logo-image"
+          src="argentBankLogo.webp"
+          alt="Argent Bank Logo"
+        />
         <h1 className="sr-only">Argent Bank</h1>
-      </div>
-      </NavLink>
+      </Link>
       <div>
-        <Link to="/SignUp" className="main-nav-item">
-        <FontAwesomeIcon icon={faUserCircle} /> Sign In
-        </Link>
+        {!isAuthenticated ? (
+          <Link to="/SignUp" className="main-nav-item"> 
+            <FontAwesomeIcon icon={faUserCircle} /> 
+            Sign In
+          </Link>
+        ) : (
+          <>
+            <span className="main-nav-item">
+              <FontAwesomeIcon icon={faUserCircle} />
+              {user ? `Hello, ${user.firstName} ${user.lastName}` : 'Hello'}
+            </span>
+            <button onClick={handleLogout} className="main-nav-item">
+              Sign Out
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );
-};
+}
 
 export default NavBar;
