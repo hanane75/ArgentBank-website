@@ -6,6 +6,7 @@ import '../App.css';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
+
 function UserPage() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -44,11 +45,11 @@ function UserPage() {
           <h1>Welcome back, {firstName} {lastName}!</h1>
           {!isEditing ? (
             <>
-              <h2>Your current pseudo is {user.pseudo}</h2>
+              
               <button className='edit-button' onClick={handleEditClick}>Edit Name</button>
             </>
           ) : (
-            <div>
+            <div  className="form-container">
               <h2>Edit Your Profile</h2>
               <form>
                 <div>
@@ -83,7 +84,7 @@ function UserPage() {
                     />
                   </label>
                 </div>
-                <div>
+                <div className='button-edition'>
                   <button type="button" className='edit-button' onClick={handleCancel}>Cancel</button>
                   <button type="button" className='edit-button' onClick={handleConfirm}>Confirm</button>
                 </div>

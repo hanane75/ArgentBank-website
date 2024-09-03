@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../Reducer/authSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import '../App.css';
 
 function NavBar() {
@@ -35,11 +36,12 @@ function NavBar() {
           <>
             <span className="main-nav-item">
               <FontAwesomeIcon icon={faUserCircle} />
-              {user ? `Hello, ${user.firstName} ${user.lastName}` : 'Hello'}
+              {user ? user.firstName : ''}
+
             </span>
-            <button onClick={handleLogout} className="main-nav-item">
-              Sign Out
-            </button>
+            <Link to="/SignUp" onClick={handleLogout} className="main-nav-item">
+  <FontAwesomeIcon icon={faSignOutAlt} /> Sign Out
+</Link>
           </>
         )}
       </div>
