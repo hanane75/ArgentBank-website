@@ -26,7 +26,7 @@ function NavBar() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
+      <div className='navout'>
         {!isAuthenticated ? (
           <Link to="/SignUp" className="main-nav-item"> 
             <FontAwesomeIcon icon={faUserCircle} /> 

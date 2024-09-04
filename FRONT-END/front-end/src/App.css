@@ -77,6 +77,11 @@ body {
 .hidden {
   display: none;
 }
+.navout{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 /* hero ***/
 
 .hero {
@@ -319,7 +324,7 @@ body {
 
 /* Styles pour chaque champ du formulaire */
 .form-container label {
-  display: block;
+  display: flex;
   font-weight: bold;
   margin-bottom: 8px;
   color: #555;
@@ -334,6 +339,7 @@ body {
   background-color: #f9f9f9;
   color: #333;
   box-sizing: border-box;
+  margin-left: 10px;
 }
 
 /* Champs désactivés */

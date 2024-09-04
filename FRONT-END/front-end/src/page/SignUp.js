@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Reducer/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -20,9 +20,11 @@ function SignUp() {
     dispatch(login({ username, password }));
   };
 
-  if (isAuthenticated) {
-    navigate('/UserPage');
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/UserPage');
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div>
