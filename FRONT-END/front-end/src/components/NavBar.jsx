@@ -33,11 +33,12 @@ function NavBar() {
           </Link>
         ) : (
           <>
-            <span className="main-nav-item">
+            {/* Le nom ou pseudo est cliquable pour revenir à la page utilisateur */}
+            <Link to="/UserPage" className="main-nav-item">
               <FontAwesomeIcon icon={faUserCircle} />
               {/* Affiche le pseudo si disponible, sinon affiche le prénom */}
               {user ? (user.pseudo ? user.pseudo : user.firstName) : ''}
-            </span>
+            </Link>
             <Link to="/SignUp" onClick={handleLogout} className="main-nav-item">
               <FontAwesomeIcon icon={faSignOutAlt} /> Sign Out
             </Link>
