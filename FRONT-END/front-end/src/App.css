@@ -59,7 +59,11 @@ body {
 .main-nav-item {
   text-decoration: none;
   margin-right: 0.5rem;
+  display: flex;
+    align-items: center;
+    gap: 5px;
 }
+
 
 .main-nav-item:hover {
   text-decoration: underline;
@@ -339,7 +343,7 @@ body {
   background-color: #f9f9f9;
   color: #333;
   box-sizing: border-box;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 /* Champs désactivés */

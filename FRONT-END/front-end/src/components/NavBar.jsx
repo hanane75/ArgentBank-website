@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../Reducer/authSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import '../App.css';
 
 function NavBar() {
@@ -26,22 +25,22 @@ function NavBar() {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div className='navout'>
+      <div className="navout">
         {!isAuthenticated ? (
-          <Link to="/SignUp" className="main-nav-item"> 
-            <FontAwesomeIcon icon={faUserCircle} /> 
+          <Link to="/SignUp" className="main-nav-item">
+            <FontAwesomeIcon icon={faUserCircle} />
             Sign In
           </Link>
         ) : (
           <>
             <span className="main-nav-item">
               <FontAwesomeIcon icon={faUserCircle} />
-              {user ? user.firstName : ''}
-
+              {/* Affiche le pseudo si disponible, sinon affiche le prénom */}
+              {user ? (user.pseudo ? user.pseudo : user.firstName) : ''}
             </span>
             <Link to="/SignUp" onClick={handleLogout} className="main-nav-item">
-  <FontAwesomeIcon icon={faSignOutAlt} /> Sign Out
-</Link>
+              <FontAwesomeIcon icon={faSignOutAlt} /> Sign Out
+            </Link>
           </>
         )}
       </div>
