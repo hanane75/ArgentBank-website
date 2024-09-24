@@ -311,7 +311,7 @@ body {
 
 /* Styles pour le conteneur du formulaire */
 .form-container {
-  max-width: 400px;
+  max-width: 300px;
   margin: 0 auto; /* Centrer le formulaire horizontalement */
   padding: 20px;
   background-color: #f8f9fa;
@@ -359,4 +359,11 @@ body {
   align-items: center;
   gap: 20px;
   padding-left: 50px;
+}
+@media (min-width: 720px) {
+  .form-container {
+  
+    margin: 40px auto;
+    padding: 30px;
+  }
 }
