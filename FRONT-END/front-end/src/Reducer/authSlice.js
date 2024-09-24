@@ -34,6 +34,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.error = null;
+      localStorage.removeItem('token'); // Supprime le token lors de la déconnexion
     },
     updatePseudo: (state, action) => {
       if (state.user) {

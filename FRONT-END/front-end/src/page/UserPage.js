@@ -15,16 +15,13 @@ function UserPage() {
   const [newPseudo, setNewPseudo] = useState(user ? user.pseudo : '');
   const [firstName, setFirstName] = useState(user ? user.firstName : '');
   const [lastName, setLastName] = useState(user ? user.lastName : '');
-
   if (!isAuthenticated) {
     navigate('/SignIn');
     return null;
   }
-
   const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
+    setIsEditing(true); 
+  }
   const handleCancel = () => {
     setIsEditing(false);
     setNewPseudo(user.pseudo); // Réinitialiser la valeur au pseudo actuel
