@@ -5,7 +5,7 @@ import { updatePseudo } from '../Reducer/authSlice';
 import '../App.css';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-
+import axios from 'axios'; // Import axios pour les requêtes HTTP
 
 function UserPage() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -15,13 +15,16 @@ function UserPage() {
   const [newPseudo, setNewPseudo] = useState(user ? user.pseudo : '');
   const [firstName, setFirstName] = useState(user ? user.firstName : '');
   const [lastName, setLastName] = useState(user ? user.lastName : '');
+
   if (!isAuthenticated) {
     navigate('/SignIn');
     return null;
   }
+
   const handleEditClick = () => {
-    setIsEditing(true); 
+    setIsEditing(true);
   }
+
   const handleCancel = () => {
     setIsEditing(false);
     setNewPseudo(user.pseudo); // Réinitialiser la valeur au pseudo actuel
@@ -29,24 +32,39 @@ function UserPage() {
     setLastName(user.lastName);
   };
 
-  const handleConfirm = () => {
-    dispatch(updatePseudo(newPseudo));
-    setIsEditing(false);
-  };
+  const handleConfirm = async () => {
+    try {
+      // Requête PUT pour mettre à jour le pseudo sur le serveur
+      const response = await axios.put('http://localhost:3001/api/v1/user/profile',
+         {
+        userName: newPseudo
+      }, {
+        headers: {
+          Authorization: `Bearer ${user.token}` // Ajout du token d'authentification
+        }
+      });
 
+      // Si la requête est réussie, on met à jour le pseudo dans Redux
+      if (response.status === 200) {
+        dispatch(updatePseudo(newPseudo));
+        setIsEditing(false);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du pseudonyme:", error);
+    }
+  };
   return (
     <div>
-      <NavBar/>
+      <NavBar />
       <main className="main bg-dark">
         <div className="header">
-          <h1>Welcome back, {firstName} {lastName}!</h1>
+          <h1>Welcome back, {user.firstName} {user.lastName}!</h1>
           {!isEditing ? (
             <>
-              
               <button className='edit-button' onClick={handleEditClick}>Edit Name</button>
             </>
           ) : (
-            <div  className="form-container">
+            <div className="form-container">
               <h2>Edit Your Profile</h2>
               <form>
                 <div>
@@ -120,7 +138,7 @@ function UserPage() {
           </div>
         </section>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

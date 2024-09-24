@@ -9,13 +9,36 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ username, password }, thunkAPI) => {
     try {
+      // Étape 1 : Faire la requête de login pour obtenir le token
       const response = await axios.post(API_URL, {
         email: username,
         password: password,
       });
 
-      const data = response.data.body;
-      return { token: data.token, username: data.email, pseudo: 'Tony', firstName: 'Tony', lastName: 'Jarvis' };
+      const token = response.data.body.token;
+
+      // Étape 2 : Utiliser le token pour récupérer les infos du profil
+      const profileResponse = await axios.post(
+        'http://localhost:3001/api/v1/user/profile',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const userProfile = profileResponse.data.body;
+
+      // Étape 3 : Retourner les informations utilisateur
+      return { 
+        token, 
+        username: userProfile.email, 
+        pseudo: userProfile.userName, 
+        firstName: userProfile.firstName, 
+        lastName: userProfile.lastName 
+      };
+
     } catch (error) {
       return thunkAPI.rejectWithValue('Invalid credentials or network error');
     }
@@ -34,7 +57,6 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.error = null;
-      localStorage.removeItem('token'); // Supprime le token lors de la déconnexion
     },
     updatePseudo: (state, action) => {
       if (state.user) {
@@ -43,16 +65,17 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(login.fulfilled, (state, action) => {
+    
+      builder.addCase(login.fulfilled, (state, action) => {
         state.isAuthenticated = true;
-        state.user = action.payload;
+        state.user = {
+          token: action.payload.token,
+          username: action.payload.username,
+          pseudo: action.payload.pseudo,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName
+        };
         state.error = null;
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.isAuthenticated = false;
-        state.user = null;
-        state.error = action.payload;
       });
   },
 });
